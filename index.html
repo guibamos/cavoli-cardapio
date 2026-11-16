@@ -41,8 +41,8 @@ img{max-width:100%;display:block}
 .hero .note{font-size:12.5px;color:#9AA2B5;margin-top:10px}
 
 /* Category bar */
-.cats{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.cats .in{display:flex;gap:8px;overflow-x:auto;padding-block:12px;scrollbar-width:none}
+.cats{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.cats .in{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-block:12px;scrollbar-width:none}
 .cats .in::-webkit-scrollbar{display:none}
 .chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--body);padding:8px 16px;border-radius:999px;text-decoration:none}
 .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -208,16 +208,25 @@ document.getElementById("menu").innerHTML=S.map(s=>`<section class="sec" id="${s
   return `<article class="card">${img?`<div class="ph"><img src="img/${img}.jpg" alt="${esc(c.n)}" loading="lazy"></div>`:""}<div class="bd"><div class="t">${esc(c.n)}${c.tag?`<span class="tag ${c.tag[0]}">${c.tag[1]}</span>`:""}</div><p class="d">${esc(c.d)}</p><div class="ft"><span class="price">${pr}</span><a class="add" href="${wa(c.n)}" target="_blank" rel="noopener">Pedir</a></div></div></article>`}).join("")}</div></section>`).join("")
  +`<section class="sec" id="bebidas"><h2>Bebidas</h2><p class="sub">Geladas</p><div class="drinks">${DR.map(d=>`<div><span>${d[0]}</span><span>${brl(d[1])}</span></div>`).join("")}</div></section>`;
 
-/* highlight current category */
+/* highlight current category: only classes change while the page scrolls;
+   the category bar is recentred after scrolling has stopped, so it never interrupts a swipe */
 const chips=[...document.querySelectorAll(".chip")];
 const secs=chips.map(c=>document.getElementById(c.dataset.id));
-function mark(){let cur=secs[0].id;for(const s of secs){if(s.getBoundingClientRect().top<=90)cur=s.id;}
-  chips.forEach(c=>{const on=c.dataset.id===cur;if(on!==c.classList.contains("on")){c.classList.toggle("on",on);if(on){const bar=c.parentElement;bar.scrollLeft=c.offsetLeft-bar.clientWidth/2+c.offsetWidth/2;}}});}
+const bar=document.getElementById("cats");
+let cur=null, idle=null;
+function mark(){let id=secs[0].id;for(const s of secs){if(s.getBoundingClientRect().top<=90)id=s.id;}
+  if(id===cur)return; cur=id; chips.forEach(c=>c.classList.toggle("on",c.dataset.id===id));}
+function centre(){const c=chips.find(x=>x.dataset.id===cur); if(!c)return;
+  const left=c.offsetLeft-bar.clientWidth/2+c.offsetWidth/2; if(Math.abs(bar.scrollLeft-left)>4) bar.scrollLeft=left;}
+let tick=false;
+addEventListener("scroll",()=>{
+  if(!tick){tick=true;requestAnimationFrame(()=>{mark();tick=false;});}
+  clearTimeout(idle); idle=setTimeout(centre,350);
+},{passive:true});
+mark();
 const calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
 chips.forEach(c=>c.addEventListener("click",e=>{e.preventDefault();const t=document.getElementById(c.dataset.id);
   scrollTo({top:t.getBoundingClientRect().top+scrollY-64,behavior:calm?"auto":"smooth"});}));
-let tick=false;
-addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(()=>{mark();tick=false;});}},{passive:true});mark();
 
 /* phone preview */
 if(new URLSearchParams(location.search).has("celular")) document.body.classList.add("framed");
