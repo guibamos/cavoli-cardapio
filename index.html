@@ -217,7 +217,8 @@ let cur=null, idle=null;
 function mark(){let id=secs[0].id;for(const s of secs){if(s.getBoundingClientRect().top<=90)id=s.id;}
   if(id===cur)return; cur=id; chips.forEach(c=>c.classList.toggle("on",c.dataset.id===id));}
 function centre(){const c=chips.find(x=>x.dataset.id===cur); if(!c)return;
-  const left=c.offsetLeft-bar.clientWidth/2+c.offsetWidth/2; if(Math.abs(bar.scrollLeft-left)>4) bar.scrollLeft=left;}
+  const r=c.getBoundingClientRect(), b=bar.getBoundingClientRect(); const d=(r.left+r.width/2)-(b.left+b.width/2);
+  if(Math.abs(d)>4) bar.scrollLeft+=d;}
 let tick=false;
 addEventListener("scroll",()=>{
   if(!tick){tick=true;requestAnimationFrame(()=>{mark();tick=false;});}
