@@ -213,8 +213,9 @@ document.getElementById("menu").innerHTML=S.map(s=>`<section class="sec" id="${s
 const chips=[...document.querySelectorAll(".chip")];
 const secs=chips.map(c=>document.getElementById(c.dataset.id));
 function mark(){let cur=secs[0].id;for(const s of secs){if(s.getBoundingClientRect().top<=90)cur=s.id;}
-  chips.forEach(c=>{const on=c.dataset.id===cur;if(on!==c.classList.contains("on")){c.classList.toggle("on",on);if(on)c.scrollIntoView({block:"nearest",inline:"nearest"});}});}
-addEventListener("scroll",mark,{passive:true});mark();
+  chips.forEach(c=>{const on=c.dataset.id===cur;if(on!==c.classList.contains("on")){c.classList.toggle("on",on);if(on){const bar=c.parentElement;bar.scrollTo({left:c.offsetLeft-bar.clientWidth/2+c.offsetWidth/2,behavior:"smooth"});}}});}
+let tick=false;
+addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(()=>{mark();tick=false;});}},{passive:true});mark();
 
 /* phone preview */
 if(new URLSearchParams(location.search).has("celular")) document.body.classList.add("framed");
