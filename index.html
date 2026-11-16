@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Cardápio Cávoli Reorganizado</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: two columns — the menu as it is today (a flat outline) beside a phone showing the reorganized menu. Stacks on phones. */
+:root{
+  --bg:#F6F5F1; --surface:#FFFFFF; --ink:#1C1B18; --muted:#6B6860; --line:#E3E0D8;
+  --basil:#2E5B3B; --basil-soft:#E4EDE5; --tomato:#B8321C; --tomato-soft:#F7E3DE;
+  --crust:#D9A35B; --char:#3A2A1E; --phone:#111110;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141412; --surface:#1E1D1A; --ink:#EFEDE6; --muted:#A29E93; --line:#33312C;
+  --basil:#8CC79A; --basil-soft:#1F3125; --tomato:#F08A72; --tomato-soft:#3A201A;
+  --crust:#C98F45; --char:#2A1E15; --phone:#000000; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141412; --surface:#1E1D1A; --ink:#EFEDE6; --muted:#A29E93; --line:#33312C;
+  --basil:#8CC79A; --basil-soft:#1F3125; --tomato:#F08A72; --tomato-soft:#3A201A;
+  --crust:#C98F45; --char:#2A1E15; --phone:#000000; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding-block:40px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:32px}
+header h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.4vw,44px);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+header p{margin:10px 0 0;color:var(--muted);max-width:62ch;font-size:15px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--basil);margin-bottom:10px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+h2{font-family:var(--display);font-weight:700;font-size:20px;margin:0 0 14px}
+/* Before */
+.before{display:grid;gap:28px;min-width:0}
+.outline{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;font-size:14px}
+.outline ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.outline .sec{font-weight:600;margin-top:8px}
+.outline .sec:first-child{margin-top:0}
+.outline .it{color:var(--muted);padding-left:14px}
+.outline .hidden-box{margin:4px 0 4px 14px;padding:10px 12px;border:1px dashed var(--tomato);border-radius:8px;background:var(--tomato-soft);color:var(--ink);font-size:13px}
+.outline .hidden-box b{color:var(--tomato)}
+.issues{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.issues li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:14px}
+.issues .dot{width:22px;height:22px;border-radius:50%;background:var(--tomato-soft);color:var(--tomato);font-weight:700;font-size:12px;display:grid;place-items:center}
+.issues strong{display:block}
+.issues span{color:var(--muted)}
+.gain{background:var(--basil-soft);border-radius:10px;padding:16px 18px;font-size:14px}
+.gain strong{color:var(--basil)}
+/* Phone */
+.phone{background:var(--phone);border-radius:42px;padding:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.45);max-width:100%;justify-self:center;width:380px}
+.screen{background:var(--surface);border-radius:32px;overflow:hidden;height:760px;display:flex;flex-direction:column}
+.store{padding:22px 18px 12px;border-bottom:1px solid var(--line)}
+.store .name{font-family:var(--display);font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px}
+.store .meta{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:4px}
+.store .meta b{color:var(--ink);font-weight:600}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 18px;border-bottom:1px solid var(--line);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 13px var(--body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip:focus-visible{outline:2px solid var(--basil);outline-offset:2px}
+.menu{overflow-y:auto;flex:1;padding:6px 18px 24px;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){.menu{scroll-behavior:auto}}
+.menu h3{font-family:var(--display);font-weight:700;font-size:17px;margin:20px 0 2px}
+.menu .sub{font-size:12px;color:var(--muted);margin:0 0 8px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .t{font-weight:600;font-size:14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.item .d{font-size:12.5px;color:var(--muted);margin:3px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item .p{font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.item .p small{font-weight:400;color:var(--muted);font-size:12px}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px}
+.tag.hot{background:var(--tomato-soft);color:var(--tomato)}
+.tag.house{background:var(--basil-soft);color:var(--basil)}
+.tag.veg{border:1px solid var(--basil);color:var(--basil)}
+/* pizza placeholder: crust ring + topping tint, stands in for the Instagram photo */
+.pz{width:84px;height:84px;border-radius:12px;background:var(--char);display:grid;place-items:center;position:relative}
+.pz::before{content:"";width:68px;height:68px;border-radius:50%;background:
+  radial-gradient(circle at 30% 35%,var(--c2) 0 5px,transparent 6px),
+  radial-gradient(circle at 65% 30%,var(--c2) 0 4px,transparent 5px),
+  radial-gradient(circle at 55% 68%,var(--c2) 0 5px,transparent 6px),
+  radial-gradient(circle at 28% 70%,var(--c3) 0 4px,transparent 5px),
+  radial-gradient(circle at 72% 55%,var(--c3) 0 3px,transparent 4px),
+  radial-gradient(circle,var(--c1) 0 26px,var(--crust) 27px 34px)}
+.pz span{position:absolute;bottom:4px;font-size:9px;color:#fff;opacity:.75;letter-spacing:.04em}
+.ph{width:84px;height:84px;border-radius:12px;object-fit:cover;background:var(--char);display:block}
+.foot{font-size:12.5px;color:var(--muted);max-width:70ch}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Cávoli Pizzeria · proposta de cardápio no delivery</div>
+    <h1>Os 17 sabores saem da gaveta e vão para a vitrine</h1>
+    <p>Hoje o cliente vê "Pizza salgada, a partir de R$ 87,90" e precisa abrir o item para descobrir o que a casa faz. Na versão reorganizada, cada sabor é um item com foto, descrição e preço cheio, separado por seção.</p>
+  </header>
+
+  <div class="grid">
+    <section class="before" aria-labelledby="h-before">
+      <div>
+        <h2 id="h-before">Como está hoje</h2>
+        <div class="outline">
+          <ul>
+            <li class="sec">Entradas</li>
+            <li class="it">Burrata · Schiacciata Cotto · Schiacciata Mortazza · Calzone</li>
+            <li class="sec">Combo</li>
+            <li class="it">A dupla perfeita</li>
+            <li class="sec">Pizza salgada</li>
+            <li class="it">Pizza salgada PEQUENA (4 pedaços)</li>
+            <li class="sec">Pizza salgada <span style="color:var(--tomato);font-weight:500">(título repetido)</span></li>
+            <li class="it">Pizza salgada GRANDE 2 SABORES</li>
+            <li class="it">Pizza salgada GRANDE (8 pedaços)</li>
+            <li class="hidden-box"><b>17 sabores escondidos aqui dentro</b>, numa lista de opção obrigatória: Carbonara, Crudaiola, Margherita, Porchetta, Tonisa, Verano, Del Monte, Fetovaia, Il Capo, L'Americana, Mortazza, Pollo, Sansone, Quatro Formaggi, Calabresa, Portuguesa</li>
+            <li class="sec">Pizza doce · Sobremesas · Bebidas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h2>O que isso custa</h2>
+        <ul class="issues">
+          <li><div class="dot">1</div><div><strong>A busca não encontra os sabores</strong><span>Quem procura "carbonara", "camarão" ou "mortadela" no app não chega na Cávoli, porque esses nomes não são itens.</span></div></li>
+          <li><div class="dot">2</div><div><strong>O preço parece enganoso</strong><span>"A partir de R$ 87,90" vale só para a Margherita. Dentro do item, os sabores aparecem como "+ R$ 99,90", que parece um adicional.</span></div></li>
+          <li><div class="dot">3</div><div><strong>Uma foto para 17 pizzas</strong><span>As fotos do Instagram são o melhor ativo da casa e não aparecem no cardápio.</span></div></li>
+          <li><div class="dot">4</div><div><strong>A campeã de vendas fica em 11º</strong><span>A própria descrição chama a Mortazza de "campeã de vendas", mas ela está no meio de uma lista dentro de outra lista.</span></div></li>
+        </ul>
+      </div>
+
+      <div class="gain"><strong>Por onde começar:</strong> arrumar a vitrine não gasta verba de mídia. Antes de pagar anúncio no Google para trazer gente ao cardápio, o cardápio precisa vender sozinho.</div>
+    </section>
+
+    <div class="phone" aria-label="Simulação do cardápio reorganizado">
+      <div class="screen">
+        <div class="store">
+          <div class="name">Cávoli Pizzeria</div>
+          <div class="meta"><span><b>★ 5.0</b></span><span>Pizzaria napolitana</span><span>Canasvieiras</span><span>Pedido mín. R$ 50</span></div>
+        </div>
+        <nav class="chips" aria-label="Seções do cardápio">
+          <button class="chip" id="c-destaques" aria-pressed="true" data-t="destaques">Destaques</button>
+          <button class="chip" id="c-autorais" aria-pressed="false" data-t="autorais">Autorais</button>
+          <button class="chip" id="c-classicas" aria-pressed="false" data-t="classicas">Clássicas italianas</button>
+          <button class="chip" id="c-tradicionais" aria-pressed="false" data-t="tradicionais">Tradicionais</button>
+          <button class="chip" id="c-meio" aria-pressed="false" data-t="meio">Meio a meio</button>
+          <button class="chip" id="c-mais" aria-pressed="false" data-t="mais">Entradas e doces</button>
+        </nav>
+        <div class="menu" id="menu"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Preços da pizza grande (8 pedaços) conferidos no iFood da Cávoli em 16/11/2026. Os preços da pequena não aparecem dentro de cada sabor e precisam ser confirmados com a pizzaria. As fotos são as que a própria Cávoli já usa no iFood; no cardápio atual elas ficam escondidas dentro da lista de sabores. As seções seguem a lógica da casa, mas a divisão final é da Lorena.</p>
+</div>
+
+<script>
+const P=(c1,c2,c3)=>({c1,c2,c3});
+const sections=[
+ {id:"destaques",title:"Destaques",sub:"O que a casa mais vende e o que só ela faz",items:[
+  {n:"Mortazza",img:"img/mortazza.jpg",d:"Mussarela, molho pesto, mussarela de búfala fresca, mortadela e basílico.",p:106,tag:["hot","Mais pedida"],c:P("#F2E6CF","#E7A9A4","#5E8F4E")},
+  {n:"L'Americana",img:"img/americana.jpg",d:"Molho de tomate italiano, mussarela, pastrami da casa defumado por 12 horas, cebola caramelizada e molho Carolina Gold.",p:107,tag:["house","Assinatura"],c:P("#C9502E","#7A3B2A","#D9B061")},
+  {n:"Verano",img:"img/verano.jpg",d:"Molho de tomate amarelo, búfala, camarão, crispy de alho-poró, molho de camarão e raspas de limão siciliano.",p:99.9,c:P("#F0C84A","#F29B7A","#EDE3C8")},
+  {n:"A dupla perfeita",img:"img/delmonte.jpg",d:"Sua pizza grande favorita e uma pequena de Nutella de sobremesa.",p:99,price:"Combo",tag:["hot","Combo"],c:P("#C9502E","#4A2A1C","#F2E6CF")}
+ ]},
+ {id:"autorais",title:"Pizzas autorais",sub:"Criações da casa",items:[
+  {n:"L'Americana",img:"img/americana.jpg",d:"Pastrami da casa defumado por 12 horas, cebola caramelizada e molho Carolina Gold.",p:107,tag:["house","Assinatura"],c:P("#C9502E","#7A3B2A","#D9B061")},
+  {n:"Mortazza",img:"img/mortazza.jpg",d:"Mortadela, molho pesto, mussarela de búfala fresca e basílico.",p:106,tag:["hot","Mais pedida"],c:P("#F2E6CF","#E7A9A4","#5E8F4E")},
+  {n:"Tonisa",img:"img/tonisa.jpg",d:"Carne de panela suculenta sobre purê de abóbora, com creme de gorgonzola.",p:105.95,c:P("#E9A04B","#6E3B24","#EDE3C8")},
+  {n:"Verano",img:"img/verano.jpg",d:"Tomate amarelo, búfala, camarão, crispy de alho-poró e limão siciliano.",p:99.9,c:P("#F0C84A","#F29B7A","#EDE3C8")},
+  {n:"Il Capo",img:"img/ilcapo.jpg",d:"Tomate italiano, mussarela, salame picante, tomate cereja, cebola roxa, ricota fresca e basílico.",p:99.9,c:P("#C9502E","#8E1F1F","#F5F1E6")},
+  {n:"Porchetta",img:"img/porchetta.jpg",d:"Porchetta, provolone, batata ao forno e geleia de laranja com pimenta.",p:98,c:P("#F2E0B8","#B26B3D","#E8A23A")},
+  {n:"Fetovaia",img:"img/fetovaia.jpg",d:"Mussarela, pêssego, presunto cru, parmesão e tiras de cebola.",p:94.9,c:P("#F2E6CF","#F2A65A","#D98A8A")}
+ ]},
+ {id:"classicas",title:"Clássicas italianas",sub:"Molho de tomate italiano e ingredientes de origem",items:[
+  {n:"Carbonara",img:"img/carbonara.jpg",d:"Mussarela, creme de ovo, guanciale crocante, pecorino e pimenta-do-reino.",p:99.9,c:P("#F2DFA0","#F0C21E","#8C5A3C")},
+  {n:"Sansone",img:"img/sansone.jpg",d:"Tomate italiano, azeitonas pretas, búfala fresca, anchovas e orégano.",p:97.9,c:P("#C9502E","#2B2420","#F5F1E6")},
+  {n:"Quatro Formaggi",img:"img/quatroformaggi.jpg",d:"Mussarela, parmesão, gorgonzola e Catupiry.",p:97.9,c:P("#F4E7C4","#E9D9A6","#B7C2A0")},
+  {n:"Crudaiola",img:"img/crudaiola.jpg",d:"Tomate italiano, mussarela, rúcula, presunto cru e parmesão.",p:95.9,c:P("#C9502E","#D98A8A","#4F7F3A")},
+  {n:"Del Monte",img:"img/delmonte.jpg",d:"Mussarela e funghi trifolati com alho e salsinha.",p:89.9,tag:["veg","Vegetariana"],c:P("#F2E6CF","#7A5A3C","#4F7F3A")},
+  {n:"Margherita",img:"img/margherita.jpg",d:"Tomate italiano, parmesão, mussarela de búfala e basílico.",p:87.9,c:P("#C9502E","#F5F1E6","#3F7A3A")}
+ ]},
+ {id:"tradicionais",title:"Tradicionais",sub:"Os sabores de sempre, na massa napolitana",items:[
+  {n:"Pollo",img:"img/pollo.jpg",d:"Tomate italiano, mussarela, Catupiry e frango temperado.",p:97.7,c:P("#F2E0B8","#D9A066","#F5F1E6")},
+  {n:"Calabresa",img:"img/calabresa.jpg",d:"Tomate italiano, mussarela, calabresa e cebola roxa.",p:89.9,c:P("#C9502E","#9C3A2B","#8E4C8E")},
+  {n:"Portuguesa",img:"img/portuguesa.jpg",d:"Tomate italiano, mussarela, presunto cozido, cebola, azeitonas e ovo.",p:89.9,c:P("#E7B86A","#E9A7A0","#2B2420")}
+ ]},
+ {id:"meio",title:"Meio a meio",sub:"Dois sabores na mesma pizza grande",items:[
+  {n:"Grande 2 sabores (8 pedaços)",img:"img/meio.jpg",d:"Escolha dois sabores de qualquer seção.",p:87.9,price:"A partir de",c:P("#C9502E","#F2E6CF","#3F7A3A")}
+ ]},
+ {id:"mais",title:"Entradas e doces",sub:"Para abrir e para fechar",items:[
+  {n:"Burrata",img:"img/burrata.jpg",d:"Tomates coloridos refogados no alho e óleo, pesto e pão artesanal.",p:79,c:P("#F5F1E6","#E05A3A","#4F7F3A")},
+  {n:"Schiacciata Mortazza",img:"img/schiacciata.jpg",d:"Pesto, mortadela italiana, tomate cereja e búfala fresca.",p:63.9,c:P("#E9C98F","#E7A9A4","#5E8F4E")},
+  {n:"Torta Caprese",img:"img/caprese.jpg",d:"Farinha de amêndoas e chocolate meio amargo.",p:22,c:P("#4A2A1C","#2B1A12","#D9B061")},
+  {n:"Pizza doce grande (8 pedaços)",img:"img/doce.jpg",d:"Sabores doces da casa.",p:93,price:"A partir de",c:P("#4A2A1C","#F5F1E6","#C9502E")}
+ ]}
+];
+const brl=v=>"R$ "+v.toFixed(2).replace(".",",");
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const menu=document.getElementById("menu");
+menu.innerHTML=sections.map(s=>`<section id="s-${s.id}"><h3>${s.title}</h3><p class="sub">${s.sub}</p>${s.items.map(i=>`
+ <div class="item"><div><div class="t">${esc(i.n)}${i.tag?`<span class="tag ${i.tag[0]}">${i.tag[1]}</span>`:""}</div>
+ <div class="d">${esc(i.d)}</div>
+ <div class="p">${i.price==="Combo"?brl(i.p):i.price?`<small>${i.price} </small>${brl(i.p)}`:(["autorais","classicas","tradicionais","destaques"].includes(s.id)?`${brl(i.p)} <small>· grande</small>`:brl(i.p))}</div></div>
+ ${i.img?`<img class="ph" src="${i.img}" alt="${esc(i.n)}" loading="lazy" width="84" height="84">`:`<div class="pz" style="--c1:${i.c.c1};--c2:${i.c.c2};--c3:${i.c.c3}"><span>FOTO</span></div>`}</div>`).join("")}</section>`).join("");
+const chips=[...document.querySelectorAll(".chip")];
+chips.forEach(c=>c.addEventListener("click",()=>{
+  const t=document.getElementById("s-"+c.dataset.t);
+  menu.scrollTop=t.offsetTop-menu.offsetTop-4;
+  chips.forEach(x=>x.setAttribute("aria-pressed",String(x===c)));
+}));
+menu.addEventListener("scroll",()=>{
+  let cur=sections[0].id;
+  for(const s of sections){const el=document.getElementById("s-"+s.id); if(el.offsetTop-menu.offsetTop-40<=menu.scrollTop) cur=s.id;}
+  chips.forEach(x=>{const on=x.dataset.t===cur; x.setAttribute("aria-pressed",String(on)); if(on) x.scrollIntoView({block:"nearest",inline:"nearest"});});
+},{passive:true});
+</script>
+</body>
+</html>
