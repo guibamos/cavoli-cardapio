@@ -4,217 +4,226 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Cardápio Cávoli Reorganizado</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<title>Cávoli Pizzeria · Cardápio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Layout: two columns — the menu as it is today (a flat outline) beside a phone showing the reorganized menu. Stacks on phones. */
+/* Layout: brand header + sticky category bar; dish cards in a grid on desktop, app-style rows on phones. */
 :root{
-  --bg:#F6F5F1; --surface:#FFFFFF; --ink:#1C1B18; --muted:#6B6860; --line:#E3E0D8;
-  --basil:#2E5B3B; --basil-soft:#E4EDE5; --tomato:#B8321C; --tomato-soft:#F7E3DE;
-  --crust:#D9A35B; --char:#3A2A1E; --phone:#111110;
-  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --bg:#FBFAF7; --surface:#FFFFFF; --ink:#16203A; --muted:#626A7C; --line:#E6E3DC;
+  --tomato:#C0331E; --tomato-soft:#F8E4DF; --basil:#2F6A43; --basil-soft:#E3EFE6; --night:#121A30;
+  --display:Fraunces, Georgia, "Times New Roman", serif;
   --body:Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#141412; --surface:#1E1D1A; --ink:#EFEDE6; --muted:#A29E93; --line:#33312C;
-  --basil:#8CC79A; --basil-soft:#1F3125; --tomato:#F08A72; --tomato-soft:#3A201A;
-  --crust:#C98F45; --char:#2A1E15; --phone:#000000; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#141412; --surface:#1E1D1A; --ink:#EFEDE6; --muted:#A29E93; --line:#33312C;
-  --basil:#8CC79A; --basil-soft:#1F3125; --tomato:#F08A72; --tomato-soft:#3A201A;
-  --crust:#C98F45; --char:#2A1E15; --phone:#000000; color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.5}
-.wrap{max-width:1080px;margin:0 auto;padding-block:40px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:32px}
-header h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.4vw,44px);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
-header p{margin:10px 0 0;color:var(--muted);max-width:62ch;font-size:15px}
-.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--basil);margin-bottom:10px}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:start}
-@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
-h2{font-family:var(--display);font-weight:700;font-size:20px;margin:0 0 14px}
-/* Before */
-.before{display:grid;gap:28px;min-width:0}
-.outline{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;font-size:14px}
-.outline ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.outline .sec{font-weight:600;margin-top:8px}
-.outline .sec:first-child{margin-top:0}
-.outline .it{color:var(--muted);padding-left:14px}
-.outline .hidden-box{margin:4px 0 4px 14px;padding:10px 12px;border:1px dashed var(--tomato);border-radius:8px;background:var(--tomato-soft);color:var(--ink);font-size:13px}
-.outline .hidden-box b{color:var(--tomato)}
-.issues{display:grid;gap:12px;margin:0;padding:0;list-style:none}
-.issues li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:14px}
-.issues .dot{width:22px;height:22px;border-radius:50%;background:var(--tomato-soft);color:var(--tomato);font-weight:700;font-size:12px;display:grid;place-items:center}
-.issues strong{display:block}
-.issues span{color:var(--muted)}
-.gain{background:var(--basil-soft);border-radius:10px;padding:16px 18px;font-size:14px}
-.gain strong{color:var(--basil)}
-/* Phone */
-.phone{background:var(--phone);border-radius:42px;padding:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.45);max-width:100%;justify-self:center;width:380px}
-.screen{background:var(--surface);border-radius:32px;overflow:hidden;height:760px;display:flex;flex-direction:column}
-.store{padding:22px 18px 12px;border-bottom:1px solid var(--line)}
-.store .name{font-family:var(--display);font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px}
-.store .meta{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:4px}
-.store .meta b{color:var(--ink);font-weight:600}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 18px;border-bottom:1px solid var(--line);scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 13px var(--body);padding:6px 12px;border-radius:999px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
-.chip:focus-visible{outline:2px solid var(--basil);outline-offset:2px}
-.menu{overflow-y:auto;flex:1;padding:6px 18px 24px;scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){.menu{scroll-behavior:auto}}
-.menu h3{font-family:var(--display);font-weight:700;font-size:17px;margin:20px 0 2px}
-.menu .sub{font-size:12px;color:var(--muted);margin:0 0 8px}
-.item{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.item:last-child{border-bottom:0}
-.item .t{font-weight:600;font-size:14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.item .d{font-size:12.5px;color:var(--muted);margin:3px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.item .p{font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
-.item .p small{font-weight:400;color:var(--muted);font-size:12px}
-.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+.in{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* Hero */
+.hero{background:var(--night);color:#F3F1EA;position:relative;overflow:hidden}
+.hero .in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:56px}
+.brand{font-family:var(--display);font-weight:700;font-size:clamp(44px,7vw,84px);line-height:.95;letter-spacing:.01em;margin:0}
+.brand small{display:block;font-family:var(--body);font-weight:500;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#C9CEDB;margin-top:14px}
+.tagline{font-family:var(--display);font-size:clamp(19px,2.2vw,24px);font-weight:500;margin:22px 0 0;max-width:30ch;text-wrap:balance}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;padding:0;list-style:none;font-size:13.5px;color:#C9CEDB}
+.facts b{color:#fff;font-weight:600}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 20px;font:600 14px var(--body);text-decoration:none;border:0;cursor:pointer}
+.btn.wa{background:#25A35A;color:#fff}
+.btn.ghost{background:transparent;color:#F3F1EA;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.btn:focus-visible,.chip:focus-visible,.add:focus-visible{outline:2px solid var(--tomato);outline-offset:3px}
+.hero-img{aspect-ratio:1/1;border-radius:50%;overflow:hidden;max-width:440px;justify-self:end;width:100%;box-shadow:0 0 0 10px rgba(255,255,255,.04),0 30px 80px -20px rgba(0,0,0,.6)}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero .note{font-size:12.5px;color:#9AA2B5;margin-top:10px}
+
+/* Category bar */
+.cats{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.cats .in{display:flex;gap:8px;overflow-x:auto;padding-block:12px;scrollbar-width:none}
+.cats .in::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--body);padding:8px 16px;border-radius:999px;text-decoration:none}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Sections */
+main .in{padding-block:8px 64px}
+.sec{padding-top:40px}
+.sec h2{font-family:var(--display);font-weight:700;font-size:30px;margin:0;letter-spacing:-.01em}
+.sec .sub{color:var(--muted);margin:4px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{aspect-ratio:4/3;background:var(--night);overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .ph img{transform:scale(1.04)}
+@media (prefers-reduced-motion:reduce){.card .ph img{transition:none}}
+.card .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .t{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.2}
+.card .d{color:var(--muted);font-size:14px;margin:0;flex:1}
+.card .ft{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
+.price{font-weight:600;font-size:16px;font-variant-numeric:tabular-nums}
+.price small{font-weight:400;color:var(--muted);font-size:12.5px}
+.add{border:0;background:var(--tomato);color:#fff;font:600 13px var(--body);border-radius:999px;padding:8px 14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.tag{font-family:var(--body);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px}
 .tag.hot{background:var(--tomato-soft);color:var(--tomato)}
 .tag.house{background:var(--basil-soft);color:var(--basil)}
-.tag.veg{border:1px solid var(--basil);color:var(--basil)}
-/* pizza placeholder: crust ring + topping tint, stands in for the Instagram photo */
-.pz{width:84px;height:84px;border-radius:12px;background:var(--char);display:grid;place-items:center;position:relative}
-.pz::before{content:"";width:68px;height:68px;border-radius:50%;background:
-  radial-gradient(circle at 30% 35%,var(--c2) 0 5px,transparent 6px),
-  radial-gradient(circle at 65% 30%,var(--c2) 0 4px,transparent 5px),
-  radial-gradient(circle at 55% 68%,var(--c2) 0 5px,transparent 6px),
-  radial-gradient(circle at 28% 70%,var(--c3) 0 4px,transparent 5px),
-  radial-gradient(circle at 72% 55%,var(--c3) 0 3px,transparent 4px),
-  radial-gradient(circle,var(--c1) 0 26px,var(--crust) 27px 34px)}
-.pz span{position:absolute;bottom:4px;font-size:9px;color:#fff;opacity:.75;letter-spacing:.04em}
-.ph{width:84px;height:84px;border-radius:12px;object-fit:cover;background:var(--char);display:block}
-.foot{font-size:12.5px;color:var(--muted);max-width:70ch}
+.tag.veg{box-shadow:inset 0 0 0 1px var(--basil);color:var(--basil)}
+.drinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px 22px}
+.drinks div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.drinks div:nth-last-child(-n+2){border-bottom:0}
+
+footer{background:var(--night);color:#C9CEDB;font-size:14px}
+footer .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-block:28px}
+footer b{color:#fff;font-family:var(--display);font-size:20px}
+footer a{color:#fff}
+
+/* Phone preview */
+.mob-btn{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:20;background:var(--ink);color:#fff;box-shadow:0 10px 30px -8px rgba(0,0,0,.4)}
+.overlay{position:fixed;inset:0;z-index:30;background:rgba(10,14,26,.72);display:grid;place-items:center;padding:20px}
+.device{position:relative;width:min(390px,calc(100vw - 40px));height:min(800px,calc(100vh - 40px));background:#0B0B0C;border-radius:48px;padding:12px;box-shadow:0 40px 90px -20px rgba(0,0,0,.7)}
+.device::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#0B0B0C;border-radius:999px;z-index:2}
+.device iframe{width:100%;height:100%;border:0;border-radius:38px;background:var(--bg)}
+.close{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:#111;font:600 20px var(--body);cursor:pointer;z-index:3}
+body.framed .mob-btn{display:none}
+
+/* Phones: app-style rows */
+@media (max-width:760px){
+  .hero .in{grid-template-columns:minmax(0,1fr);padding-block:36px 28px;gap:24px}
+  .hero-img{order:-1;max-width:220px;justify-self:start}
+  .grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .card{flex-direction:row-reverse;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:14px 0;gap:14px}
+  .card .ph{width:104px;height:104px;flex:none;aspect-ratio:auto;border-radius:12px}
+  .card .bd{padding:0;gap:4px;min-width:0}
+  .card .t{font-size:17px}
+  .card .d{font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .ft{margin-top:4px}
+  .add{padding:6px 12px;font-size:12.5px}
+  .sec{padding-top:28px}
+  .sec h2{font-size:24px}
+  .sec .sub{margin-bottom:6px}
+  .drinks{grid-template-columns:minmax(0,1fr);padding:4px 16px}
+  .drinks div:nth-last-child(2){border-bottom:1px solid var(--line)}
+  .mob-btn{display:none}
+}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div class="eyebrow">Cávoli Pizzeria · proposta de cardápio no delivery</div>
-    <h1>Os 17 sabores saem da gaveta e vão para a vitrine</h1>
-    <p>Hoje o cliente vê "Pizza salgada, a partir de R$ 87,90" e precisa abrir o item para descobrir o que a casa faz. Na versão reorganizada, cada sabor é um item com foto, descrição e preço cheio, separado por seção.</p>
-  </header>
-
-  <div class="grid">
-    <section class="before" aria-labelledby="h-before">
-      <div>
-        <h2 id="h-before">Como está hoje</h2>
-        <div class="outline">
-          <ul>
-            <li class="sec">Entradas</li>
-            <li class="it">Burrata · Schiacciata Cotto · Schiacciata Mortazza · Calzone</li>
-            <li class="sec">Combo</li>
-            <li class="it">A dupla perfeita</li>
-            <li class="sec">Pizza salgada</li>
-            <li class="it">Pizza salgada PEQUENA (4 pedaços)</li>
-            <li class="sec">Pizza salgada <span style="color:var(--tomato);font-weight:500">(título repetido)</span></li>
-            <li class="it">Pizza salgada GRANDE 2 SABORES</li>
-            <li class="it">Pizza salgada GRANDE (8 pedaços)</li>
-            <li class="hidden-box"><b>17 sabores escondidos aqui dentro</b>, numa lista de opção obrigatória: Carbonara, Crudaiola, Margherita, Porchetta, Tonisa, Verano, Del Monte, Fetovaia, Il Capo, L'Americana, Mortazza, Pollo, Sansone, Quatro Formaggi, Calabresa, Portuguesa</li>
-            <li class="sec">Pizza doce · Sobremesas · Bebidas</li>
-          </ul>
-        </div>
-      </div>
-
-      <div>
-        <h2>O que isso custa</h2>
-        <ul class="issues">
-          <li><div class="dot">1</div><div><strong>A busca não encontra os sabores</strong><span>Quem procura "carbonara", "camarão" ou "mortadela" no app não chega na Cávoli, porque esses nomes não são itens.</span></div></li>
-          <li><div class="dot">2</div><div><strong>O preço parece enganoso</strong><span>"A partir de R$ 87,90" vale só para a Margherita. Dentro do item, os sabores aparecem como "+ R$ 99,90", que parece um adicional.</span></div></li>
-          <li><div class="dot">3</div><div><strong>Uma foto para 17 pizzas</strong><span>As fotos do Instagram são o melhor ativo da casa e não aparecem no cardápio.</span></div></li>
-          <li><div class="dot">4</div><div><strong>A campeã de vendas fica em 11º</strong><span>A própria descrição chama a Mortazza de "campeã de vendas", mas ela está no meio de uma lista dentro de outra lista.</span></div></li>
-        </ul>
-      </div>
-
-      <div class="gain"><strong>Por onde começar:</strong> arrumar a vitrine não gasta verba de mídia. Antes de pagar anúncio no Google para trazer gente ao cardápio, o cardápio precisa vender sozinho.</div>
-    </section>
-
-    <div class="phone" aria-label="Simulação do cardápio reorganizado">
-      <div class="screen">
-        <div class="store">
-          <div class="name">Cávoli Pizzeria</div>
-          <div class="meta"><span><b>★ 5.0</b></span><span>Pizzaria napolitana</span><span>Canasvieiras</span><span>Pedido mín. R$ 50</span></div>
-        </div>
-        <nav class="chips" aria-label="Seções do cardápio">
-          <button class="chip" id="c-destaques" aria-pressed="true" data-t="destaques">Destaques</button>
-          <button class="chip" id="c-autorais" aria-pressed="false" data-t="autorais">Autorais</button>
-          <button class="chip" id="c-classicas" aria-pressed="false" data-t="classicas">Clássicas italianas</button>
-          <button class="chip" id="c-tradicionais" aria-pressed="false" data-t="tradicionais">Tradicionais</button>
-          <button class="chip" id="c-meio" aria-pressed="false" data-t="meio">Meio a meio</button>
-          <button class="chip" id="c-mais" aria-pressed="false" data-t="mais">Entradas e doces</button>
-        </nav>
-        <div class="menu" id="menu"></div>
+<header class="hero">
+  <div class="in">
+    <div>
+      <h1 class="brand">Cávoli<small>Pizzeria Napoletana</small></h1>
+      <p class="tagline">A pizza que carrega a alma da Itália, com massa que matura 3 dias antes de ir ao forno.</p>
+      <ul class="facts">
+        <li><b>★ 5,0</b> no Google</li>
+        <li>Seg a dom · <b>18h30 às 23h30</b></li>
+        <li>Canasvieiras · Florianópolis</li>
+      </ul>
+      <div class="ctas">
+        <a class="btn wa" id="wa-top" href="https://wa.me/5548988189838" target="_blank" rel="noopener">Pedir pelo WhatsApp</a>
+        <a class="btn ghost" href="https://www.ifood.com.br/delivery/florianopolis-sc/cavoli-pizzeria-canasvieiras/e8070a68-64ec-4055-b3ce-d6dca54a6f3f" target="_blank" rel="noopener">Pedir pelo iFood</a>
       </div>
     </div>
+    <div class="hero-img"><img src="img/americana.jpg" alt="Pizza L'Americana"></div>
   </div>
+</header>
 
-  <p class="foot">Preços da pizza grande (8 pedaços) conferidos no iFood da Cávoli em 16/11/2026. Os preços da pequena não aparecem dentro de cada sabor e precisam ser confirmados com a pizzaria. As fotos são as que a própria Cávoli já usa no iFood; no cardápio atual elas ficam escondidas dentro da lista de sabores. As seções seguem a lógica da casa, mas a divisão final é da Lorena.</p>
+<nav class="cats" aria-label="Categorias"><div class="in" id="cats"></div></nav>
+
+<main><div class="in" id="menu"></div></main>
+
+<footer>
+  <div class="in">
+    <div><b>Cávoli Pizzeria</b><br>R. Higino Brito, 248 · Canasvieiras · Florianópolis</div>
+    <div>WhatsApp (48) 98818-9838<br>Instagram <a href="https://www.instagram.com/cavolipizzeria/" target="_blank" rel="noopener">@cavolipizzeria</a></div>
+  </div>
+</footer>
+
+<button class="btn mob-btn" id="mob-btn" type="button">📱 Ver no celular</button>
+<div class="overlay" id="overlay" hidden>
+  <div class="device">
+    <button class="close" id="close" type="button" aria-label="Fechar">×</button>
+    <iframe id="frame" title="Cardápio no celular"></iframe>
+  </div>
 </div>
 
 <script>
-const P=(c1,c2,c3)=>({c1,c2,c3});
-const sections=[
- {id:"destaques",title:"Destaques",sub:"O que a casa mais vende e o que só ela faz",items:[
-  {n:"Mortazza",img:"img/mortazza.jpg",d:"Mussarela, molho pesto, mussarela de búfala fresca, mortadela e basílico.",p:106,tag:["hot","Mais pedida"],c:P("#F2E6CF","#E7A9A4","#5E8F4E")},
-  {n:"L'Americana",img:"img/americana.jpg",d:"Molho de tomate italiano, mussarela, pastrami da casa defumado por 12 horas, cebola caramelizada e molho Carolina Gold.",p:107,tag:["house","Assinatura"],c:P("#C9502E","#7A3B2A","#D9B061")},
-  {n:"Verano",img:"img/verano.jpg",d:"Molho de tomate amarelo, búfala, camarão, crispy de alho-poró, molho de camarão e raspas de limão siciliano.",p:99.9,c:P("#F0C84A","#F29B7A","#EDE3C8")},
-  {n:"A dupla perfeita",img:"img/delmonte.jpg",d:"Sua pizza grande favorita e uma pequena de Nutella de sobremesa.",p:99,price:"Combo",tag:["hot","Combo"],c:P("#C9502E","#4A2A1C","#F2E6CF")}
+const WA="5548988189838";
+const S=[
+ {id:"destaques",t:"Destaques",s:"As mais pedidas e as que só a Cávoli faz",cards:[
+  {n:"Mortazza",d:"Mussarela, molho pesto, mussarela de búfala fresca, mortadela e basílico.",p:106,img:"mortazza",tag:["hot","Mais pedida"]},
+  {n:"L'Americana",d:"Molho de tomate italiano, mussarela, pastrami da casa defumado na lenha por 12 horas, cebola caramelizada e molho Carolina Gold.",p:107,img:"americana",tag:["house","Assinatura"]},
+  {n:"Verano",d:"Molho de tomate amarelo, mussarela de búfala, camarão, crispy de alho-poró, molho de camarão e raspas de limão siciliano.",p:99.9,img:"verano"},
+  {n:"A dupla perfeita",d:"Escolha sua pizza grande favorita e leve uma pizza pequena de Nutella de sobremesa.",p:99,img:"delmonte",tag:["hot","Combo"],combo:true}
  ]},
- {id:"autorais",title:"Pizzas autorais",sub:"Criações da casa",items:[
-  {n:"L'Americana",img:"img/americana.jpg",d:"Pastrami da casa defumado por 12 horas, cebola caramelizada e molho Carolina Gold.",p:107,tag:["house","Assinatura"],c:P("#C9502E","#7A3B2A","#D9B061")},
-  {n:"Mortazza",img:"img/mortazza.jpg",d:"Mortadela, molho pesto, mussarela de búfala fresca e basílico.",p:106,tag:["hot","Mais pedida"],c:P("#F2E6CF","#E7A9A4","#5E8F4E")},
-  {n:"Tonisa",img:"img/tonisa.jpg",d:"Carne de panela suculenta sobre purê de abóbora, com creme de gorgonzola.",p:105.95,c:P("#E9A04B","#6E3B24","#EDE3C8")},
-  {n:"Verano",img:"img/verano.jpg",d:"Tomate amarelo, búfala, camarão, crispy de alho-poró e limão siciliano.",p:99.9,c:P("#F0C84A","#F29B7A","#EDE3C8")},
-  {n:"Il Capo",img:"img/ilcapo.jpg",d:"Tomate italiano, mussarela, salame picante, tomate cereja, cebola roxa, ricota fresca e basílico.",p:99.9,c:P("#C9502E","#8E1F1F","#F5F1E6")},
-  {n:"Porchetta",img:"img/porchetta.jpg",d:"Porchetta, provolone, batata ao forno e geleia de laranja com pimenta.",p:98,c:P("#F2E0B8","#B26B3D","#E8A23A")},
-  {n:"Fetovaia",img:"img/fetovaia.jpg",d:"Mussarela, pêssego, presunto cru, parmesão e tiras de cebola.",p:94.9,c:P("#F2E6CF","#F2A65A","#D98A8A")}
+ {id:"autorais",t:"Pizzas autorais",s:"Criações da casa · pizza grande, 8 pedaços",cards:[
+  {n:"L'Americana",d:"Molho de tomate italiano, mussarela, pastrami da casa, cebola caramelizada e molho Carolina Gold.",p:107,img:"americana",tag:["house","Assinatura"]},
+  {n:"Mortazza",d:"Mussarela, molho pesto, mussarela de búfala fresca, mortadela e basílico.",p:106,img:"mortazza",tag:["hot","Mais pedida"]},
+  {n:"Tonisa",d:"Carne de panela suculenta sobre purê de abóbora paulista, com creme de queijo gorgonzola.",p:105.95,img:"tonisa"},
+  {n:"Verano",d:"Molho de tomate amarelo, búfala, camarão, crispy de alho-poró e raspas de limão siciliano.",p:99.9,img:"verano"},
+  {n:"Il Capo",d:"Molho de tomate italiano, mussarela, salame picante, tomate cereja, cebola roxa, ricota fresca e basílico.",p:99.9,img:"ilcapo"},
+  {n:"Porchetta",d:"Porchetta, provolone, batata ao forno e um toque de geleia de laranja com pimenta.",p:98,img:"porchetta"},
+  {n:"Fetovaia",d:"Leve e fresca: mussarela, pêssego, presunto cru, parmesão e tiras de cebola.",p:94.9,img:"fetovaia"}
  ]},
- {id:"classicas",title:"Clássicas italianas",sub:"Molho de tomate italiano e ingredientes de origem",items:[
-  {n:"Carbonara",img:"img/carbonara.jpg",d:"Mussarela, creme de ovo, guanciale crocante, pecorino e pimenta-do-reino.",p:99.9,c:P("#F2DFA0","#F0C21E","#8C5A3C")},
-  {n:"Sansone",img:"img/sansone.jpg",d:"Tomate italiano, azeitonas pretas, búfala fresca, anchovas e orégano.",p:97.9,c:P("#C9502E","#2B2420","#F5F1E6")},
-  {n:"Quatro Formaggi",img:"img/quatroformaggi.jpg",d:"Mussarela, parmesão, gorgonzola e Catupiry.",p:97.9,c:P("#F4E7C4","#E9D9A6","#B7C2A0")},
-  {n:"Crudaiola",img:"img/crudaiola.jpg",d:"Tomate italiano, mussarela, rúcula, presunto cru e parmesão.",p:95.9,c:P("#C9502E","#D98A8A","#4F7F3A")},
-  {n:"Del Monte",img:"img/delmonte.jpg",d:"Mussarela e funghi trifolati com alho e salsinha.",p:89.9,tag:["veg","Vegetariana"],c:P("#F2E6CF","#7A5A3C","#4F7F3A")},
-  {n:"Margherita",img:"img/margherita.jpg",d:"Tomate italiano, parmesão, mussarela de búfala e basílico.",p:87.9,c:P("#C9502E","#F5F1E6","#3F7A3A")}
+ {id:"classicas",t:"Clássicas italianas",s:"Molho de tomate italiano e ingredientes de origem · pizza grande",cards:[
+  {n:"Carbonara",d:"Mussarela, creme de ovo, guanciale crocante, pecorino e pimenta-do-reino.",p:99.9,img:"carbonara"},
+  {n:"Sansone",d:"Molho de tomate italiano, azeitonas pretas, mussarela de búfala fresca, anchovas e orégano.",p:97.9,img:"sansone"},
+  {n:"Quatro Formaggi",d:"Molho de tomate italiano, mussarela, parmesão, gorgonzola e Catupiry.",p:97.9,img:"quatroformaggi"},
+  {n:"Crudaiola",d:"Molho de tomate italiano, mussarela, rúcula, presunto cru e parmesão.",p:95.9,img:"crudaiola"},
+  {n:"Del Monte",d:"Mussarela e funghi trifolati, temperados com alho e salsinha.",p:89.9,img:"delmonte",tag:["veg","Vegetariana"]},
+  {n:"Margherita",d:"Molho de tomate italiano, parmesão, mussarela de búfala e basílico.",p:87.9,img:"margherita"}
  ]},
- {id:"tradicionais",title:"Tradicionais",sub:"Os sabores de sempre, na massa napolitana",items:[
-  {n:"Pollo",img:"img/pollo.jpg",d:"Tomate italiano, mussarela, Catupiry e frango temperado.",p:97.7,c:P("#F2E0B8","#D9A066","#F5F1E6")},
-  {n:"Calabresa",img:"img/calabresa.jpg",d:"Tomate italiano, mussarela, calabresa e cebola roxa.",p:89.9,c:P("#C9502E","#9C3A2B","#8E4C8E")},
-  {n:"Portuguesa",img:"img/portuguesa.jpg",d:"Tomate italiano, mussarela, presunto cozido, cebola, azeitonas e ovo.",p:89.9,c:P("#E7B86A","#E9A7A0","#2B2420")}
+ {id:"tradicionais",t:"Tradicionais",s:"Os sabores de sempre, na massa napolitana · pizza grande",cards:[
+  {n:"Pollo",d:"Molho de tomate italiano, mussarela, Catupiry e frango temperado.",p:97.7,img:"pollo"},
+  {n:"Calabresa",d:"Molho de tomate italiano, mussarela, calabresa e cebola roxa.",p:89.9,img:"calabresa"},
+  {n:"Portuguesa",d:"Molho de tomate italiano, mussarela, presunto cozido, cebola, azeitonas e ovo.",p:89.9,img:"portuguesa"}
  ]},
- {id:"meio",title:"Meio a meio",sub:"Dois sabores na mesma pizza grande",items:[
-  {n:"Grande 2 sabores (8 pedaços)",img:"img/meio.jpg",d:"Escolha dois sabores de qualquer seção.",p:87.9,price:"A partir de",c:P("#C9502E","#F2E6CF","#3F7A3A")}
+ {id:"meio",t:"Meio a meio e pequena",s:"Dois sabores na grande, ou uma pizza só para você",cards:[
+  {n:"Grande 2 sabores",d:"Pizza grande de 8 pedaços com dois sabores à sua escolha.",p:87.9,img:"meio",from:true},
+  {n:"Pequena",d:"Pizza pequena de 4 pedaços, para uma pessoa.",p:62.9,img:"meio",from:true}
  ]},
- {id:"mais",title:"Entradas e doces",sub:"Para abrir e para fechar",items:[
-  {n:"Burrata",img:"img/burrata.jpg",d:"Tomates coloridos refogados no alho e óleo, pesto e pão artesanal.",p:79,c:P("#F5F1E6","#E05A3A","#4F7F3A")},
-  {n:"Schiacciata Mortazza",img:"img/schiacciata.jpg",d:"Pesto, mortadela italiana, tomate cereja e búfala fresca.",p:63.9,c:P("#E9C98F","#E7A9A4","#5E8F4E")},
-  {n:"Torta Caprese",img:"img/caprese.jpg",d:"Farinha de amêndoas e chocolate meio amargo.",p:22,c:P("#4A2A1C","#2B1A12","#D9B061")},
-  {n:"Pizza doce grande (8 pedaços)",img:"img/doce.jpg",d:"Sabores doces da casa.",p:93,price:"A partir de",c:P("#4A2A1C","#F5F1E6","#C9502E")}
+ {id:"entradas",t:"Entradas",s:"Para abrir a noite",cards:[
+  {n:"Burrata",d:"Burrata com tomates coloridos refogados no alho e óleo, molho pesto e fatias de pão artesanal.",p:79,img:"burrata"},
+  {n:"Schiacciata Mortazza",d:"Molho pesto, mortadela italiana, tomate cereja e búfala fresca.",p:63.9,img:"schiacciata"},
+  {n:"Calzone",d:"Mussarela, presunto, champignon portobello e molho de tomate italiano.",p:64},
+  {n:"Schiacciata Cotto",d:"Rúcula, presunto cozido, pecorino romano e cebola caramelizada.",p:55.9}
+ ]},
+ {id:"doces",t:"Doces",s:"O final feliz do jantar",cards:[
+  {n:"Pizza doce grande",d:"Pizza doce de 8 pedaços.",p:93,img:"doce",from:true},
+  {n:"Pizza doce pequena",d:"Pizza doce de 4 pedaços.",p:66,img:"doce",from:true},
+  {n:"Torta Caprese",d:"Feita com farinha de amêndoas e chocolate meio amargo.",p:22,img:"caprese"}
  ]}
 ];
+const DR=[["Coca-Cola lata 350ml",8],["Coca-Cola Zero lata 350ml",8],["Guaraná Antarctica lata 350ml",8],["Sprite 350ml",8],["Água sem gás 510ml",6],["Água com gás 510ml",6],["Stella Artois 330ml",11],["Corona long neck 330ml",13],["Heineken 330ml",16]];
 const brl=v=>"R$ "+v.toFixed(2).replace(".",",");
-const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-const menu=document.getElementById("menu");
-menu.innerHTML=sections.map(s=>`<section id="s-${s.id}"><h3>${s.title}</h3><p class="sub">${s.sub}</p>${s.items.map(i=>`
- <div class="item"><div><div class="t">${esc(i.n)}${i.tag?`<span class="tag ${i.tag[0]}">${i.tag[1]}</span>`:""}</div>
- <div class="d">${esc(i.d)}</div>
- <div class="p">${i.price==="Combo"?brl(i.p):i.price?`<small>${i.price} </small>${brl(i.p)}`:(["autorais","classicas","tradicionais","destaques"].includes(s.id)?`${brl(i.p)} <small>· grande</small>`:brl(i.p))}</div></div>
- ${i.img?`<img class="ph" src="${i.img}" alt="${esc(i.n)}" loading="lazy" width="84" height="84">`:`<div class="pz" style="--c1:${i.c.c1};--c2:${i.c.c2};--c3:${i.c.c3}"><span>FOTO</span></div>`}</div>`).join("")}</section>`).join("");
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const wa=n=>`https://wa.me/${WA}?text=${encodeURIComponent("Olá! Quero pedir: "+n)}`;
+const pizza=id=>["autorais","classicas","tradicionais"].includes(id);
+const fallback={Calzone:"calzone","Schiacciata Cotto":"cotto"};
+document.getElementById("cats").innerHTML=[...S.map(s=>`<a class="chip" href="#${s.id}" data-id="${s.id}">${s.t}</a>`),`<a class="chip" href="#bebidas" data-id="bebidas">Bebidas</a>`].join("");
+document.getElementById("menu").innerHTML=S.map(s=>`<section class="sec" id="${s.id}"><h2>${s.t}</h2><p class="sub">${s.s}</p><div class="grid">${s.cards.map(c=>{
+  const img=c.img||fallback[c.n];
+  const pr=c.from?`<small>a partir de </small>${brl(c.p)}`:(pizza(s.id)||(s.id==="destaques"&&!c.combo))?`${brl(c.p)} <small>grande</small>`:brl(c.p);
+  return `<article class="card">${img?`<div class="ph"><img src="img/${img}.jpg" alt="${esc(c.n)}" loading="lazy"></div>`:""}<div class="bd"><div class="t">${esc(c.n)}${c.tag?`<span class="tag ${c.tag[0]}">${c.tag[1]}</span>`:""}</div><p class="d">${esc(c.d)}</p><div class="ft"><span class="price">${pr}</span><a class="add" href="${wa(c.n)}" target="_blank" rel="noopener">Pedir</a></div></div></article>`}).join("")}</div></section>`).join("")
+ +`<section class="sec" id="bebidas"><h2>Bebidas</h2><p class="sub">Geladas</p><div class="drinks">${DR.map(d=>`<div><span>${d[0]}</span><span>${brl(d[1])}</span></div>`).join("")}</div></section>`;
+
+/* highlight current category */
 const chips=[...document.querySelectorAll(".chip")];
-chips.forEach(c=>c.addEventListener("click",()=>{
-  const t=document.getElementById("s-"+c.dataset.t);
-  menu.scrollTop=t.offsetTop-menu.offsetTop-4;
-  chips.forEach(x=>x.setAttribute("aria-pressed",String(x===c)));
-}));
-menu.addEventListener("scroll",()=>{
-  let cur=sections[0].id;
-  for(const s of sections){const el=document.getElementById("s-"+s.id); if(el.offsetTop-menu.offsetTop-40<=menu.scrollTop) cur=s.id;}
-  chips.forEach(x=>{const on=x.dataset.t===cur; x.setAttribute("aria-pressed",String(on)); if(on) x.scrollIntoView({block:"nearest",inline:"nearest"});});
-},{passive:true});
+const secs=chips.map(c=>document.getElementById(c.dataset.id));
+function mark(){let cur=secs[0].id;for(const s of secs){if(s.getBoundingClientRect().top<=90)cur=s.id;}
+  chips.forEach(c=>{const on=c.dataset.id===cur;if(on!==c.classList.contains("on")){c.classList.toggle("on",on);if(on)c.scrollIntoView({block:"nearest",inline:"nearest"});}});}
+addEventListener("scroll",mark,{passive:true});mark();
+
+/* phone preview */
+if(new URLSearchParams(location.search).has("celular")) document.body.classList.add("framed");
+const ov=document.getElementById("overlay"),fr=document.getElementById("frame");
+document.getElementById("mob-btn").onclick=()=>{if(!fr.src)fr.src=location.pathname+"?celular=1";ov.hidden=false;document.body.style.overflow="hidden";};
+const shut=()=>{ov.hidden=true;document.body.style.overflow="";};
+document.getElementById("close").onclick=shut;
+ov.addEventListener("click",e=>{if(e.target===ov)shut();});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!ov.hidden)shut();});
 </script>
 </body>
 </html>
