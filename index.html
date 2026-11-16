@@ -17,8 +17,7 @@
   --body:Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{scroll-padding-top:72px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 img{max-width:100%;display:block}
 [hidden]{display:none!important}
@@ -213,7 +212,10 @@ document.getElementById("menu").innerHTML=S.map(s=>`<section class="sec" id="${s
 const chips=[...document.querySelectorAll(".chip")];
 const secs=chips.map(c=>document.getElementById(c.dataset.id));
 function mark(){let cur=secs[0].id;for(const s of secs){if(s.getBoundingClientRect().top<=90)cur=s.id;}
-  chips.forEach(c=>{const on=c.dataset.id===cur;if(on!==c.classList.contains("on")){c.classList.toggle("on",on);if(on){const bar=c.parentElement;bar.scrollTo({left:c.offsetLeft-bar.clientWidth/2+c.offsetWidth/2,behavior:"smooth"});}}});}
+  chips.forEach(c=>{const on=c.dataset.id===cur;if(on!==c.classList.contains("on")){c.classList.toggle("on",on);if(on){const bar=c.parentElement;bar.scrollLeft=c.offsetLeft-bar.clientWidth/2+c.offsetWidth/2;}}});}
+const calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+chips.forEach(c=>c.addEventListener("click",e=>{e.preventDefault();const t=document.getElementById(c.dataset.id);
+  scrollTo({top:t.getBoundingClientRect().top+scrollY-64,behavior:calm?"auto":"smooth"});}));
 let tick=false;
 addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(()=>{mark();tick=false;});}},{passive:true});mark();
 
